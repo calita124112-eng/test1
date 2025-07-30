@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Calendar, User, ArrowRight, ArrowLeft, Search, Filter, Eye, Clock, Tag } from 'lucide-react';
 
-const NewsPage: React.FC = () => {
-  const [selectedNews, setSelectedNews] = useState<any>(null);
+interface NewsPageProps {
+  selectedNewsId?: number | null;
+  onBackToList?: () => void;
+}
+
+const NewsPage: React.FC<NewsPageProps> = ({ selectedNewsId, onBackToList }) => {
+  const [localSelectedNews, setLocalSelectedNews] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('Semua');
 
@@ -317,6 +322,11 @@ const NewsPage: React.FC = () => {
     }
   ];
 
+  // Use selectedNewsId from props if provided, otherwise use local state
+  const selectedNews = selectedNewsId 
+    ? allNews.find(news => news.id === selectedNewsId) || localSelectedNews
+    : localSelectedNews;
+
   const filteredNews = allNews.filter(news => {
     const matchesCategory = activeFilter === 'Semua' || news.category === activeFilter;
     const matchesSearch = news.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -351,7 +361,13 @@ const NewsPage: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 py-16">
         {/* Back Button */}
         <button
-          onClick={() => setSelectedNews(null)}
+          onClick={() => {
+            if (onBackToList) {
+              onBackToList();
+            } else {
+              setLocalSelectedNews(null);
+            }
+          }}
           className="flex items-center text-green-600 hover:text-green-700 font-medium mb-8 transition-colors"
         >
           <ArrowLeft className="h-5 w-5 mr-2" />
@@ -520,7 +536,7 @@ const NewsPage: React.FC = () => {
               
               <button 
                 className="w-full bg-gradient-to-r from-green-500 to-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:shadow-md transition-all duration-200 flex items-center justify-center"
-                onClick={() => setSelectedNews(news)}
+                onClick={() => setLocalSelectedNews(news)}
               >
                 Baca Selengkapnya
                 <ArrowRight className="h-4 w-4 ml-2" />

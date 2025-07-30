@@ -15,6 +15,7 @@ import WiFiAd from './components/WiFiAd';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('beranda');
+  const [selectedNewsId, setSelectedNewsId] = useState<number | null>(null);
 
   const renderPage = () => {
     switch (currentPage) {
@@ -60,7 +61,12 @@ function App() {
                 </div>
               </div>
             </div>
-            <News />
+            <News 
+              onReadMore={(newsId) => {
+                setSelectedNewsId(newsId);
+                setCurrentPage('berita');
+              }}
+            />
             <WiFiAd />
           </>
         );
@@ -69,7 +75,7 @@ function App() {
       case 'pengumuman':
         return <Announcements fullPage={true} />;
       case 'layanan':
-        return <Services />;
+        return <NewsPage selectedNewsId={selectedNewsId} onBackToList={() => setSelectedNewsId(null)} />;
       case 'galeri':
         return <Gallery />;
       case 'kegiatan':
