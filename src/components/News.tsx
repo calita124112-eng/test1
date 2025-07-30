@@ -107,7 +107,8 @@ const News: React.FC = () => {
                   <button 
                     className="flex items-center text-green-600 hover:text-green-700 font-medium"
                     onClick={() => {
-                      alert(`Membaca artikel: "${featuredNews.title}"`);
+                      // Navigate to news page - this would be handled by parent component
+                      alert(`Untuk membaca artikel lengkap, silakan kunjungi halaman Berita`);
                     }}
                   >
                     Baca Selengkapnya
@@ -155,7 +156,7 @@ const News: React.FC = () => {
               <button 
                 className="w-full bg-gradient-to-r from-green-500 to-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:shadow-md transition-all duration-200"
                 onClick={() => {
-                  alert(`Membaca artikel: "${item.title}"`);
+                  alert(`Untuk membaca artikel lengkap, silakan kunjungi halaman Berita`);
                 }}
               >
                 Baca Selengkapnya

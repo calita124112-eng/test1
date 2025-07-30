@@ -13,6 +13,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
     { id: 'beranda', label: 'Beranda', icon: Home },
     { id: 'profil-rt', label: 'Profil RT', icon: User },
     { id: 'pengumuman', label: 'Pengumuman', icon: Bell },
+    { id: 'berita', label: 'Berita', icon: FileText },
     { id: 'layanan', label: 'Layanan', icon: FileText },
     { id: 'galeri', label: 'Galeri', icon: Image },
     { id: 'kegiatan', label: 'Kegiatan', icon: Calendar },
